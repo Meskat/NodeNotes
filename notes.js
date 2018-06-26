@@ -1,10 +1,20 @@
+const fs = require('fs');
+
+
 const onError = (err) => {
   if (!err) return;
   console.log('Sorry, we were not able to create that note! See why -->', err);
 };
 
 addNote = (title, content) => {
-  console.log('add note', title, content);
+  const note = {
+    title,
+    content,
+  };
+  const notes = JSON.parse(fs.readFileSync('notes.json'));
+
+  notes.push(note);
+  fs.writeFileSync('notes.json', JSON.stringify(notes), onError);
 };
 
 removeNote = (title) => {
