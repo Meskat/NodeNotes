@@ -32,17 +32,48 @@ removeNote = (title) => {
     } else {
       console.log('Your notes file seems to be empty');
     }
-  } catch(e) {
+  } catch (e) {
     console.log('We can not find file with your notes!', e);
   }
 };
 
 getAllNotes = () => {
-  console.log('Get all notes');
+  try {
+     let notes = JSON.parse(fs.readFileSync('notes.json'));
+    if (notes) {
+      console.log('All your notes!');
+      notes.forEach(note =>
+        console.log(
+          `title: ${note.title}\n`,
+          `note: ${note.content}\n`
+        ))
+    } else {
+      console.log('You do not have any notes!');
+    }
+  } catch (e) {
+    console.log('We can not find file with your notes!', e);
+  }
 };
 
 getNote = (title) => {
-  console.log('get note', title);
+  try {
+    let notes = JSON.parse(fs.readFileSync('notes.json'));
+    if (notes) {
+      const note = notes.find(note => note.title === title);
+      if(note) {
+        console.log(
+          `title: ${note.title}\n`,
+          `note: ${note.content}\n`
+        );
+      } else {
+        console.log(`Sorry! We can not find note you are looking for! Is this title correct? => ${title}`);
+      }
+    } else {
+      console.log('Your notes file seems to be empty');
+    }
+  } catch (e) {
+    console.log('We can not find file with your notes!', e);
+  }
 };
 
 module.exports = {
