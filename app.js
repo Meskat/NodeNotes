@@ -23,4 +23,4 @@ switch (command) {
     console.log('Sorry we are not able to understand your command!', );
     break;
 }
-console.log('args', process.argv); // argument vector
+console.log('args', argv); // argument vector

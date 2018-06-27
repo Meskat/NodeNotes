@@ -7,18 +7,34 @@ const onError = (err) => {
 };
 
 addNote = (title, content) => {
+  let notes;
   const note = {
     title,
     content,
   };
-  const notes = JSON.parse(fs.readFileSync('notes.json'));
+
+  try {
+    notes = JSON.parse(fs.readFileSync('notes.json'));
+  } catch (e) {
+    notes = [];
+  }
 
   notes.push(note);
   fs.writeFileSync('notes.json', JSON.stringify(notes), onError);
 };
 
 removeNote = (title) => {
-  console.log('add note', title);
+  try {
+    let notes = JSON.parse(fs.readFileSync('notes.json'));
+    if (notes) {
+      notes = notes.filter(note => note.title !== title);
+      fs.writeFileSync('notes.json', JSON.stringify(notes), onError);
+    } else {
+      console.log('Your notes file seems to be empty');
+    }
+  } catch(e) {
+    console.log('We can not find file with your notes!', e);
+  }
 };
 
 getAllNotes = () => {
