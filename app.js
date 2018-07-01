@@ -20,7 +20,7 @@ switch (command) {
     notes.getNote(argv.title);
     break;
   default:
-    console.log('Sorry we are not able to understand your command!', );
+    console.log('Sorry we are not able to understand your command!');
     break;
 }
 console.log('args', argv); // argument vector
